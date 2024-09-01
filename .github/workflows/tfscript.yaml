@@ -30,12 +30,17 @@ jobs:
     - name: "Checkout GitHub repository"
       uses: actions/checkout@v3
 
-    - name: "Set up AWS credentials"
-      id: aws-credentials
+    - name: "Set AWS Credentials for Dev"
+      if: ${{ inputs.environment == 'dev' }}
       run: |
-        echo "AWS_ACCESS_KEY_ID=${{ secrets['TF_ACCESS_KEY_' + inputs.environment] }}" >> $GITHUB_ENV
-        echo "AWS_SECRET_ACCESS_KEY=${{ secrets['TF_SECRET_ACCESS_KEY_' + inputs.environment] }}" >> $GITHUB_ENV
-        echo "AWS_REGION=${{ env.AWS_REGION }}" >> $GITHUB_ENV
+        echo "AWS_ACCESS_KEY_ID=${{ secrets.TF_ACCESS_KEY_DEV }}" >> $GITHUB_ENV
+        echo "AWS_SECRET_ACCESS_KEY=${{ secrets.TF_SECRET_ACCESS_KEY_DEV }}" >> $GITHUB_ENV
+
+    - name: "Set AWS Credentials for Prod"
+      if: ${{ inputs.environment == 'prod' }}
+      run: |
+        echo "AWS_ACCESS_KEY_ID=${{ secrets.TF_ACCESS_KEY_PROD }}" >> $GITHUB_ENV
+        echo "AWS_SECRET_ACCESS_KEY=${{ secrets.TF_SECRET_ACCESS_KEY_PROD }}" >> $GITHUB_ENV
 
     - name: "Configure AWS API Credentials"
       uses: aws-actions/configure-aws-credentials@v1
