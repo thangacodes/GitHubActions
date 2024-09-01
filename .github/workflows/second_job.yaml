@@ -1,0 +1,10 @@
+name: Python-Script-run
+on: push
+jobs:
+  python-job:
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Print Python Version"
+      run: python --version
+    - name: Print Hello World via Python Script
+      run: python -c "print('India is my country')"
