@@ -6,5 +6,7 @@ jobs:
     steps:
     - name: "Print Python Version"
       run: python --version
-    - name: Print Hello World via Python Script
+    - name: "Print Hello World via Python Script"
       run: python -c "print('India is my country')"
+    - name: "Print current path"
+      run: "ls -ltr; pwd; df -hT"
