@@ -1,0 +1,38 @@
+name: TerraformScript
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      tfaction:
+        description: "Terraform Script Execution"
+        required: true
+        default: "Do you want to deploy in Dev?"
+        type: string
+jobs:
+  provision-ec2:
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Check out code"
+      uses: actions/checkout@v3
+    - name: "Setup Node.js"
+      uses: actions/setup-node@v3
+      with:
+        node-version: "14"
+    - name: "Configure AWS API Credentials"
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: "${{ secrets. TF_ACCESS_KEY }}"
+        aws-secret-access-key: "${{ secrets. TF_SECRET_ACCESS_KEY }}"
+        region: "${{ secrets.REGION }}"
+    - name: "Setup Terraform"
+      uses: hashicorp/setup-terraform@v2
+      with: 
+        terraform_version: "1.3.0"
+    - name: "Terraform Init"
+      run: terraform init
+    - name: "Terraform fmt"
+      run: terraform fmt
+    - name: "Terraform validate"
+      run: terraform validate 
+    - name: "Terraform plan"
+      run: terraform plan 
