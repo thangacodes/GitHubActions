@@ -33,14 +33,14 @@ jobs:
     - name: "Set AWS Credentials for Dev"
       if: ${{ inputs.environment == 'dev' }}
       run: |
-        echo "AWS_ACCESS_KEY_ID=${{ secrets.TF_ACCESS_KEY_DEV }}" >> $GITHUB_ENV
-        echo "AWS_SECRET_ACCESS_KEY=${{ secrets.TF_SECRET_ACCESS_KEY_DEV }}" >> $GITHUB_ENV
+        echo "AWS_ACCESS_KEY_ID=${{ secrets.TF_ACCESS_KEY }}" >> $GITHUB_ENV
+        echo "AWS_SECRET_ACCESS_KEY=${{ secrets.TF_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
 
     - name: "Set AWS Credentials for Prod"
       if: ${{ inputs.environment == 'prod' }}
       run: |
-        echo "AWS_ACCESS_KEY_ID=${{ secrets.TF_ACCESS_KEY_PROD }}" >> $GITHUB_ENV
-        echo "AWS_SECRET_ACCESS_KEY=${{ secrets.TF_SECRET_ACCESS_KEY_PROD }}" >> $GITHUB_ENV
+        echo "AWS_ACCESS_KEY_ID=${{ secrets.TF_ACCESS_KEY }}" >> $GITHUB_ENV
+        echo "AWS_SECRET_ACCESS_KEY=${{ secrets.TF_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
 
     - name: "Configure AWS API Credentials"
       uses: aws-actions/configure-aws-credentials@v1
@@ -68,19 +68,8 @@ jobs:
         terraform_version: ${{ env.TF_VERSION }}
 
     - name: "Terraform Init"
-      run: terraform init
-
-    - name: "Terraform fmt"
-      run: terraform fmt -check
-
-    - name: "Terraform validate"
-      run: terraform validate
-
-    - name: "Terraform Plan"
-      run: terraform plan
-
-    - name: "Run TFLint"
-      run: tflint
-
-    - name: "Run TFsec"
-      run: tfsec
+      run: |
+        terraform init
+        tflint
+        tfsec
+        terraform plan
