@@ -16,6 +16,8 @@ jobs:
           wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.93/bin/apache-tomcat-9.0.93.tar.gz
           ls -ltr
           sleep 3
-          rm -rf *.tar.gz
+          echo "deleting the file apache-tomcat-9.0.93.tar.gz in the ${pwd}"
+          rm -rf apache-tomcat-9.0.93.tar.gz
+          ls -ltr
           echo "Work is done. Going to exit"
           
