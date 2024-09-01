@@ -7,14 +7,6 @@ on:
   pull_request:
     branches:
       - main
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: "Specify the environment to deploy (e.g., dev, prod)"
-        required: true
-        default: "dev"
-        type: string
-
 jobs:
   provision-ec2:
     name: "Terraform Lint, Security Check using TFsec, and Plan"
