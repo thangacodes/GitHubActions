@@ -63,4 +63,4 @@ jobs:
         echo "terraform static code analysis in progress"
         tfsec
         echo "terraform plan in progress"
-        terraform plan
+        terraform plan -var-file="terraform.tfvars"
