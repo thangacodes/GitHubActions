@@ -28,6 +28,9 @@ jobs:
         aws-access-key-id: ${{ secrets.TF_ACCESS_KEY }}
         aws-secret-access-key: ${{ secrets.TF_SECRET_ACCESS_KEY }}
         aws-region: ${{ env.AWS_REGION }}
+    
+    - name: Save state
+      run: echo "TFSTATE=dev.tfstate"
 
     - name: "Install TFLint"
       run: |
@@ -56,7 +59,7 @@ jobs:
         echo "terraform init in progress"
         terraform init
         echo "terraform lint in progress"
-        tflint
+        tflint --init
         echo "terraform static code analysis in progress"
         tfsec
         echo "terraform plan in progress"
