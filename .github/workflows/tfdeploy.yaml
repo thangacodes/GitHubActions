@@ -7,6 +7,7 @@ on:
     branches:
       - main
 jobs:
+
   provision-ec2:
     name: "Terraform Lint, Security Check using tfsec, and plan"
     runs-on: ubuntu-latest
@@ -16,7 +17,6 @@ jobs:
       TF_VERSION: '1.4.0'
       TFLINT_VERSION: '0.46.1'
       TFSEC_VERSION: '1.28.1'
-      REMOTE_STATE: 's3://gitops-demo-bucket-tf/remote-state/dev.tfstate'
       TF_INIT: 'terraform init'
       TF_LINT: 'tflint --init'
       TF_SEC: 'tfsec'
@@ -35,10 +35,6 @@ jobs:
         aws-secret-access-key: ${{ secrets.TF_SECRET_ACCESS_KEY }}
         aws-region: ${{ env.AWS_REGION }}
     
-    - name: "Save Terraform state file"
-      run: |
-        echo "Storing tfstate file in Remote S3 bucket..."
-        ${{ env.REMOTE_STATE }}
     - name: "Install TFLint"
       run: |
         curl -sLo tflint.zip https://github.com/terraform-linters/tflint/releases/download/v${{ env.TFLINT_VERSION }}/tflint_linux_amd64.zip
