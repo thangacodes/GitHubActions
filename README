@@ -9,12 +9,14 @@ github-actions-terraform with tools that are used:
 This is the project structure of the demo.In this project we are using tfsec and tflint for terraform.
 
 * TFLint -finding potential errors and violations of best practices in your Terraform configurations before you apply them.
+
 $ brew install tflint            //Install tflint on mac using brew
 $ tflint --version
 TFLint version 0.53.0
 + ruleset.terraform (0.9.1-bundled)
 
 * Tfsec  -This tool uses static analysis of your terraform code to spot potential security issues.
+
 $ brew install tfsec             //Install tfsec on mac using brew
 $ tfsec --version
 v1.28.10
