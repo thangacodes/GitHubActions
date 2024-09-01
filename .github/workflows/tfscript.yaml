@@ -1,49 +1,60 @@
-name: TerraformScript
+name: Terraform CICD
 on:
   push:
+    branches: 
+    - main
+  pull_request:
+    branches:
+    - main
   workflow_dispatch:
     inputs:
-      tfaction:
+      taction:
         description: "Terraform Script Execution"
         required: true
         default: "Do you want to deploy in Dev?"
         type: string
 jobs:
   provision-ec2:
+    name: "Terraform Lint, Security Check using TFsec, and Plan" 
     runs-on: ubuntu-latest
-    environment: dev 
+    
+    env:
+      AWS_REGION: 'ap-south-1'
+      TF_VERSION: '1.4.0'
+      TFLINT_VERSION: '0.46.1'
+      TFSEC_VERSION: '1.28.1'
+
     steps:
-    - name: "Check out code"
+    - name: "Checkout GitHub repository"
       uses: actions/checkout@v3
-    - name: "Setup Node.js"
-      uses: actions/setup-node@v3
-      with:
-        node-version: "14"
-    - name: Save state
-      run: echo "TFSTATE=dev.tfsate"
     - name: "Configure AWS API Credentials"
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: "${{ secrets. TF_ACCESS_KEY }}"
         aws-secret-access-key: "${{ secrets. TF_SECRET_ACCESS_KEY }}"
-        aws-region: "${{ secrets.REGION }}"
-        audience: sts.amazonaws.com
+        aws-region: "${{ env.AWS_REGION }}"
+    - name: 'Install TFLint'
+      run: |
+        curl -sLo tflint.zip https://github.com/terraform-linters/tflint/releases/download/v${{ env.TFLINT_VERSION }}/tflint_linux_amd64.zip
+        unzip tflint.zip -d /usr/local/bin/
+        tflint --version
+
+    - name: 'Install tfsec'
+      run: |
+        curl -sLo tfsec https://github.com/aquasecurity/tfsec/releases/download/v${{ env.TFSEC_VERSION }}/tfsec-linux-amd64
+        chmod +x tfsec
+        mv tfsec /usr/local/bin/
+        tfsec --version
+    
     - name: "Setup Terraform"
       uses: hashicorp/setup-terraform@v2
       with: 
-        terraform_version: "1.3.0"
-    - name: "Navigating to the terraform scripts directory"
-      run: |
-        echo "changing directory to terraform scripts folder"
-        cd terra-codes/
-        echo "list out the files in terra-codes folder"
-        ls -ltr
-        echo "Terraform init in progress"
-        terraform init
-        echo "Terraform fmt in progress"
-        terraform fmt
-        echo "Terraform validate in progress"
-        terraform validate
-        echo "Terraform plan in progress"
-        terraform plan
-        
+        terraform_version: "${{ env.TF_VERSION}}"
+    - name: "Terraform Init"
+      run: terraform init
+    - name: "Terraform fmt"
+      run: terraform fmt
+    - name: "Terraform validate"
+      run: terraform validate 
+    - name: "Terraform plan"
+      run: terraform plan
