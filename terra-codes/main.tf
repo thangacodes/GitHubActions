@@ -12,8 +12,21 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_instance" "web" {
-  ami                    = data.aws_ami.ubuntu.id
-  instance_type          = var.vm_spec
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = var.vm_spec
+  metadata_options {
+    http_tokens = "required"
+  }
+  root_block_device {
+    encrypted = true
+  }
+  ebs_block_device {
+    device_name           = "/dev/sdg"
+    volume_size           = 8
+    volume_type           = "gp2"
+    delete_on_termination = false
+    encrypted             = true
+  }
   key_name               = var.sshkey
   vpc_security_group_ids = [var.virtualfirewall]
   tags                   = merge(var.tagging, { Name = "SimpleWebApp" })
