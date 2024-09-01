@@ -9,7 +9,7 @@ on:
       - main
 jobs:
   provision-ec2:
-    name: "Terraform Lint, Security Check using TFsec, and Plan"
+    name: "Terraform Lint, Security Check using tfsec, and plan"
     runs-on: ubuntu-latest
     
     env:
@@ -17,6 +17,12 @@ jobs:
       TF_VERSION: '1.4.0'
       TFLINT_VERSION: '0.46.1'
       TFSEC_VERSION: '1.28.1'
+      TF_INIT: 'terraform init'
+      TF_LINT: 'tflint --init'
+      TF_SEC: 'tfsec'
+      TF_FMT: 'terraform fmt'
+      TF_VALIDATE: 'terraform validate'
+      TF_PLAN: 'terraform plan -var-file="terraform.tfvars"'
 
     steps:
     - name: "Checkout GitHub repository"
@@ -53,14 +59,19 @@ jobs:
     - name: "Terraform Init"
       run: |
         cd terra-codes
-        echo "Current directory: $(pwd)"
-        ls -ltr
+        echo "List Out the files in Current directory: $(pwd)"
+        ls -al
+        echo "Sleep for 3 seconds..."
         sleep 3
-        echo "terraform init in progress"
-        terraform init
-        echo "terraform lint in progress"
-        tflint --init
-        echo "terraform static code analysis in progress"
-        tfsec
-        echo "terraform plan in progress"
-        terraform plan -var-file="terraform.tfvars"
+        echo "terraform init in progress..."
+        ${{ env. TF_INIT}}
+        echo "terraform lint in progress..."
+        ${{ env.TF_LINT }}
+        echo "terraform static code analysis in progress..."
+        ${{ env.TF_SEC }}
+        echo "terraform format in progress..."
+        ${{ env.TF_FMT }}
+        echo "terraform validate in progress..."
+        ${{ env.TF_VALIDATE}}
+        echo "terraform plan in progress..."
+        ${{ env.TF_PLAN}}
