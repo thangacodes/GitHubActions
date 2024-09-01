@@ -19,12 +19,15 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: "14"
+    - name: Save state
+      run: echo "TFSTATE=dev.tfsate"
     - name: "Configure AWS API Credentials"
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: "${{ secrets. TF_ACCESS_KEY }}"
         aws-secret-access-key: "${{ secrets. TF_SECRET_ACCESS_KEY }}"
         aws-region: "${{ secrets.REGION }}"
+        audience: sts.amazonaws.com
     - name: "Setup Terraform"
       uses: hashicorp/setup-terraform@v2
       with: 
