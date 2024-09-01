@@ -12,4 +12,7 @@ jobs:
           whoami
           hostname
           ifconfig -a
-          apt-get update -y
+          cd /tmp/
+          wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.93/bin/apache-tomcat-9.0.93.tar.gz
+          ls -ltr
+          tar -xvfz apache-tomcat-9.0.93.tar.gz
