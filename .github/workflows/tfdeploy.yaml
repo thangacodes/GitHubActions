@@ -49,7 +49,15 @@ jobs:
 
     - name: "Terraform Init"
       run: |
+        cd terra-codes
+        echo "Current directory: $(pwd)"
+        ls -ltr
+        sleep 3
+        echo "terraform init in progress"
         terraform init
+        echo "terraform lint in progress"
         tflint
+        echo "terraform static code analysis in progress"
         tfsec
+        echo "terraform plan in progress"
         terraform plan
