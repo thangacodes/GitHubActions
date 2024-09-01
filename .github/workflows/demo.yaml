@@ -1,0 +1,15 @@
+name: demogithubaction
+on: push
+jobs:
+  linux:
+    runs-on: ubuntu-latest 
+    steps:
+      - name: "Checking linux commands"
+        run: echo "Going to check linux commands"
+      - name: "multiple linux commands execution"
+        run: |
+          pwd
+          whoami
+          hostname
+          ifconfig -a
+          apt-get update -y
