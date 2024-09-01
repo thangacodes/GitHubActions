@@ -32,11 +32,18 @@ jobs:
       uses: hashicorp/setup-terraform@v2
       with: 
         terraform_version: "1.3.0"
-    - name: "Terraform Init"
-      run: terraform init
-    - name: "Terraform fmt"
-      run: terraform fmt
-    - name: "Terraform validate"
-      run: terraform validate 
-    - name: "Terraform plan"
-      run: terraform plan 
+    - name: "Navigating to the terraform scripts directory"
+      run: |
+        echo "changing directory to terraform scripts folder"
+        cd terra-codes/
+        echo "list out the files in terra-codes folder"
+        ls -ltr
+        echo "Terraform init in progress"
+        terraform init
+        echo "Terraform fmt in progress"
+        terraform fmt
+        echo "Terraform validate in progress"
+        terraform validate
+        echo "Terraform plan in progress"
+        terraform plan
+        
