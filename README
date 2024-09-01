@@ -4,8 +4,20 @@ This is the repository showing us in setting up the GitHub Actions workflow.
 # github-actions-terraform
 ###########################
 
+github-actions-terraform with tools that are used:
+==================================================
+This is the project structure of the demo.In this project we are using tfsec and tflint for terraform.
+
+* TFLint -finding potential errors and violations of best practices in your Terraform configurations before you apply them.
+* Tfsec  -This tool uses static analysis of your terraform code to spot potential security issues.
+
+How to install tfsec and tflint is below. Refer to the open source git repo,
+
+https://github.com/terraform-linters/tflint
+https://github.com/aquasecurity/tfsec
+
 Project Structure:
-This is the project structure of the demo.
+==================
 .
 ├── terra_codes
 │   ├── main.tf
