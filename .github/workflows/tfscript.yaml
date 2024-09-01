@@ -24,7 +24,7 @@ jobs:
       with:
         aws-access-key-id: "${{ secrets. TF_ACCESS_KEY }}"
         aws-secret-access-key: "${{ secrets. TF_SECRET_ACCESS_KEY }}"
-        region: "${{ secrets.REGION }}"
+        aws-region: "${{ secrets.REGION }}"
     - name: "Setup Terraform"
       uses: hashicorp/setup-terraform@v2
       with: 
