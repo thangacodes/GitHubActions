@@ -1,21 +1,23 @@
 name: Terraform CICD
+
 on:
   push:
     branches: 
-    - main
+      - main
   pull_request:
     branches:
-    - main
+      - main
   workflow_dispatch:
     inputs:
-      taction:
-        description: "Terraform Script Execution"
+      environment:
+        description: "Specify the environment to deploy (e.g., dev, prod)"
         required: true
-        default: "Do you want to deploy in Dev?"
+        default: "dev"
         type: string
+
 jobs:
   provision-ec2:
-    name: "Terraform Lint, Security Check using TFsec, and Plan" 
+    name: "Terraform Lint, Security Check using TFsec, and Plan"
     runs-on: ubuntu-latest
     
     env:
@@ -27,19 +29,28 @@ jobs:
     steps:
     - name: "Checkout GitHub repository"
       uses: actions/checkout@v3
+
+    - name: "Set up AWS credentials"
+      id: aws-credentials
+      run: |
+        echo "AWS_ACCESS_KEY_ID=${{ secrets['TF_ACCESS_KEY_' + inputs.environment] }}" >> $GITHUB_ENV
+        echo "AWS_SECRET_ACCESS_KEY=${{ secrets['TF_SECRET_ACCESS_KEY_' + inputs.environment] }}" >> $GITHUB_ENV
+        echo "AWS_REGION=${{ env.AWS_REGION }}" >> $GITHUB_ENV
+
     - name: "Configure AWS API Credentials"
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        aws-access-key-id: "${{ secrets. TF_ACCESS_KEY }}"
-        aws-secret-access-key: "${{ secrets. TF_SECRET_ACCESS_KEY }}"
-        aws-region: "${{ env.AWS_REGION }}"
-    - name: 'Install TFLint'
+        aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: "Install TFLint"
       run: |
         curl -sLo tflint.zip https://github.com/terraform-linters/tflint/releases/download/v${{ env.TFLINT_VERSION }}/tflint_linux_amd64.zip
         unzip tflint.zip -d /usr/local/bin/
         tflint --version
 
-    - name: 'Install tfsec'
+    - name: "Install tfsec"
       run: |
         curl -sLo tfsec https://github.com/aquasecurity/tfsec/releases/download/v${{ env.TFSEC_VERSION }}/tfsec-linux-amd64
         chmod +x tfsec
@@ -49,12 +60,22 @@ jobs:
     - name: "Setup Terraform"
       uses: hashicorp/setup-terraform@v2
       with: 
-        terraform_version: "${{ env.TF_VERSION}}"
+        terraform_version: ${{ env.TF_VERSION }}
+
     - name: "Terraform Init"
       run: terraform init
+
     - name: "Terraform fmt"
-      run: terraform fmt
+      run: terraform fmt -check
+
     - name: "Terraform validate"
-      run: terraform validate 
-    - name: "Terraform plan"
+      run: terraform validate
+
+    - name: "Terraform Plan"
       run: terraform plan
+
+    - name: "Run TFLint"
+      run: tflint
+
+    - name: "Run TFsec"
+      run: tfsec
