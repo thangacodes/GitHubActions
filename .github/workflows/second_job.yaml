@@ -1,5 +1,4 @@
 name: Python-Script-run
-
 on:
   push:
   workflow_dispatch:
@@ -9,23 +8,20 @@ on:
         required: true
         default: "Python"
         type: string
-
 jobs:
   python-job:
     runs-on: ubuntu-latest
-    
     steps:
     - name: "Check out code"
       uses: actions/checkout@v3
-    
     - name: "Print Python Version"
       run: python --version
-    
     - name: "Print Hello World via Python Script"
       run: python -c "print('India is my country')"
     
     - name: "Print current path"
       run: |
-        ls -ltr
+        hostname
+        ifconfig -a
         pwd
         df -hT
