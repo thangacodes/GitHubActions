@@ -35,9 +35,7 @@ jobs:
       - name: Run Terraform
         run: |
           cd terra-codes
-          terraform init -backend-config="bucket=${{ secrets.TF_AWS_BUCKET_NAME }}" \
-                         -backend-config="key=${{ secrets.TF_AWS_BUCKET_KEY_NAME }}" \
-                         -backend-config="region=${{ secrets.TF_AWS_REGION }}"
+          terraform init
           terraform fmt
           terraform validate
           terraform plan
