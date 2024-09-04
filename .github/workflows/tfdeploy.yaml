@@ -13,6 +13,8 @@ permissions:
 env:
   TF_LOG: INFO
   AWS_REGION: ${{ secrets.TF_AWS_REGION }}
+  TF_AWS_BUCKET_NAME: ${{ secrets.TF_AWS_BUCKET_NAME }}
+  TF_AWS_BUCKET_KEY_NAME: ${{ secrets.TF_AWS_BUCKET_KEY_NAME }}
 
 jobs:
   deploy:
@@ -30,10 +32,13 @@ jobs:
           role-session-name: GitHub-OIDC-TERRAFORM
 
       - name: Run Terraform
-        env:
-          AWS_BUCKET_NAME: ${{ secrets.TF_AWS_BUCKET_NAME }}
-          AWS_BUCKET_KEY_NAME: ${{ secrets.TF_AWS_BUCKET_KEY_NAME }}
-        run: | 
+        run: |
           cd terra-codes
-          terraform init -backend-config="bucket=${TF_AWS_BUCKET_NAME}" -backend-config="key=${TF_AWS_BUCKET_KEY_NAME}" -backend-config="region=${TF_AWS_REGION}"
-        
+          terraform init -backend-config="bucket=${{ secrets.TF_AWS_BUCKET_NAME }}" \
+                         -backend-config="key=${{ secrets.TF_AWS_BUCKET_KEY_NAME }}" \
+                         -backend-config="region=${{ secrets.TF_AWS_REGION }}"
+          terraform validate
+          terraform plan
+        env:
+          TF_LOG: INFO
+          AWS_REGION: ${{ secrets.TF_AWS_REGION }}
