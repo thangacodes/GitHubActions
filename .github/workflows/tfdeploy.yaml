@@ -1,5 +1,4 @@
 name: "Terraform action"
-
 on:
   push:
     branches:
@@ -35,9 +34,13 @@ jobs:
       - name: Run Terraform
         run: |
           cd terra-codes
+          echo "terraform initialization in progress..."
           terraform init
+          echo "terraform format in progress..."
           terraform fmt
+          echo "terraform validate in progress..."
           terraform validate
+          echo "terraform plan in progress..."
           terraform plan
         env:
           TF_LOG: INFO
