@@ -21,6 +21,9 @@ jobs:
     steps:
       - name: Git checkout
         uses: actions/checkout@v3
+        
+      - name: Print GitHub Token
+        run: echo $GITHUB_TOKEN
 
       - name: Configure AWS credentials from AWS account
         uses: aws-actions/configure-aws-credentials@v1
