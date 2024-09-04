@@ -1,36 +1,39 @@
 name: "Terraform action"
+
 on:
   push:
     branches:
       - main
   pull_request:
+
 permissions:
-      id-token: write # This is required for aws oidc connection
-      contents: read # This is required for actions/checkout
-      pull-requests: write # This is required for gh bot to comment PR
+  id-token: write # This is required for AWS OIDC connection
+  contents: read # This is required for actions/checkout
+  pull-requests: write # This is required for GitHub bot to comment on PR
+
 env:
   TF_LOG: INFO
   AWS_REGION: ${{ secrets.TF_AWS_REGION }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: {{ secrets.TF_AWS_ROLE }}
+          role-to-assume: ${{ secrets.TF_AWS_ROLE }}
           aws-region: ${{ secrets.TF_AWS_REGION }}
           role-session-name: GitHub-OIDC-TERRAFORM
-      
+
       - name: Run Terraform
-        run: | 
+        run: |
           cd terra-codes
           terraform init
         env:
           TF_LOG: INFO
-          AWS_REGION: {{ secrets.TF_AWS_REGION }}
-          TF_LOG: INFO
-          AWS_REGION: "{{ secrets.TF_AWS_REGION }}"
+          AWS_REGION: ${{ secrets.TF_AWS_REGION }}
