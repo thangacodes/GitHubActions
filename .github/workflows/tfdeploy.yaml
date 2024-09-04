@@ -1,4 +1,5 @@
 name: "Terraform action"
+
 on:
   push:
     branches:
@@ -37,6 +38,7 @@ jobs:
           terraform init -backend-config="bucket=${{ secrets.TF_AWS_BUCKET_NAME }}" \
                          -backend-config="key=${{ secrets.TF_AWS_BUCKET_KEY_NAME }}" \
                          -backend-config="region=${{ secrets.TF_AWS_REGION }}"
+          terraform fmt
           terraform validate
           terraform plan
         env:
