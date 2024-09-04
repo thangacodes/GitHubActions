@@ -1,0 +1,9 @@
+---
+- name: "This is just a sample yaml file"
+  hosts: localhost
+  become: yes
+  tasks:
+  - name: "Checking uptime of the web servers"
+    command: uptime
+    register: sysout
+  - debug: msg="{{ sysout.stdout }}"
