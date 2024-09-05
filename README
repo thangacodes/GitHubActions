@@ -1,41 +1,29 @@
-This is the repository showing us in setting up the GitHub Actions workflow.
+# Github-actions-workflows:
 
-###########################
-# github-actions-terraform
-###########################
+Integration of github-actions-workflows with Terraform related tools, including tflint and tfsec, has been achieved.
 
-github-actions-terraform with tools that are used:
-==================================================
-This is the project structure of the demo.In this project we are using tfsec and tflint for terraform.
-
-* TFLint -finding potential errors and violations of best practices in your Terraform configurations before you apply them.
+#TFLINT:
+    * finding potential errors and violations of best practices in your Terraform configurations before you apply them.
 
 $ brew install tflint            //Install tflint on mac using brew
 $ tflint --version
 TFLint version 0.53.0
 + ruleset.terraform (0.9.1-bundled)
 
-* Tfsec  -This tool uses static analysis of your terraform code to spot potential security issues.
+#TFSEC: 
+   * This tool uses static analysis of your terraform code to spot potential security issues.
 
 $ brew install tfsec             //Install tfsec on mac using brew
 $ tfsec --version
 v1.28.10
 
-How to install tfsec and tflint is below. Refer to the open source git repo,
+#Reference links:
+=================
+a) https://github.com/terraform-linters/tflint
+b) https://github.com/aquasecurity/tfsec
+=======================================================================================================================================================
+Terraform scripts are kept in the terra-codes folder, while OIDC roles with IAM policies have been updated in the AWS_IAM_ROLE_POLICY folder.
 
-https://github.com/terraform-linters/tflint
-https://github.com/aquasecurity/tfsec
-
-Project Structure:
-==================
-.
-├── terra_codes
-│   ├── main.tf
-│   ├── outputs.tf
-│   ├── providers.tf
-│   ├── terraform.tfvars
-│   └── variables.tf
-└── yaml
-    └── terra.yaml
-
-2 directories, 6 files
+The following is needed to integrate OpenID Connect (OIDC) with GitHub actions on AWS:
+a) Custom trust policy for IAM ROLE
+b) You will need inline policies for services you want to communicate with over GitHub actions
