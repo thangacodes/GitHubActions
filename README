@@ -27,3 +27,5 @@ Terraform scripts are kept in the terra-codes folder, while OIDC roles with IAM 
 The following is needed to integrate OpenID Connect (OIDC) with GitHub actions on AWS:
 a) Custom trust policy for IAM ROLE
 b) You will need inline policies for services you want to communicate with over GitHub actions
+
+In this example, The IAM role has access to Amazon Web Services like EC2 and S3 buckets.
