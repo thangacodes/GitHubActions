@@ -7,25 +7,21 @@ on:
   pull_request:
     branches:
       - main
-
+  workflow_dispatch:
 jobs:
   lint:
     runs-on: ubuntu-latest
-
     steps:
       # Checkout the repository
       - uses: actions/checkout@v4
-
       # Set up Python environment
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x  # Using a more flexible version of Python
-
       # Create requirements.txt and install dependencies
       - run: |
           echo "Checking pip version on GitHub-hosted runner"
           pip3 --version
-          
           # Create the requirements.txt file with package names
           echo "boto" > requirements.txt
           echo "boto3" >> requirements.txt
