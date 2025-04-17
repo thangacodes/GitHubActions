@@ -1,0 +1,45 @@
+name: GH to deploy python based flask application
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - stage
+  pull_request:
+    branches:
+      - main
+      - dev
+      - stage
+jobs:
+  flask_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Cloning
+        uses: actions/checkout@v2
+      - name: Get to know about the GH runner information
+        run: |
+          echo "Executor name is:" $(whoami)
+          echo "GitHub workflow path is:" $(pwd)
+          echo "GitHub hosted machine name is:" $(hostname)
+      - name: Setup GitHub Action Bot
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      - name: Build Flask Docker Image
+        run: |
+          docker build -t flaskimage:${{ github.sha }} .
+        working-directory: GitHubActions-repo/flaskapp
+
+      - name: Image checking and running container
+        run: |
+          docker images
+          docker run -p 5000:5000 --name flaskapp flaskimage:${{ github.sha }}
+
+
+
+
+
+
+
+
+      
