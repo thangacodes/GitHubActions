@@ -21,24 +21,25 @@ jobs:
         with:
           python-version: 3.x  # Using a more flexible version of Python
 
-      # Install dependencies from requirements.txt
+      # Create requirements.txt and install dependencies
       - run: |
           echo "Checking pip version on GitHub-hosted runner"
           pip3 --version
+          
           # Create the requirements.txt file with package names
-          echo "boto" >> requirements.txt
+          echo "boto" > requirements.txt
           echo "boto3" >> requirements.txt
           echo "flask" >> requirements.txt
           echo "black" >> requirements.txt
+
+          # Show the contents of the requirements.txt file
+          echo "Viewing the requirements.txt file contents"
+          cat requirements.txt
+
+          # Install dependencies from requirements.txt
           pip install -r requirements.txt
 
-      # Apply Black formatting (only for 'push' events)
-      - if: success() && github.event_name == 'push'
-        run: |
-          echo "Applying black formatting"
-          black .  # Apply black formatting
-
-      # Commit and push changes if it's a push event (Avoid force-pushing to shared branches)
+      # Apply Black formatting and push changes if it's a push event
       - if: success() && github.event_name == 'push'
         run: |
           git config --global user.name "github-actions[bot]"
@@ -49,7 +50,16 @@ jobs:
           
           git fetch origin
           git checkout "$BRANCH_NAME"
+
+          # Stage and commit any changes before pulling
+          git add .
+          git commit -m "Update requirements.txt" || echo "No changes to commit"
+
+          # Pull changes from the main branch with rebase
           git pull --rebase origin main
+          
+          # Apply black formatting
+          black .  # Apply black formatting
           git add .
           git commit -m "Apply black formatting via GitHub Actions" || echo "No changes to commit"
           
