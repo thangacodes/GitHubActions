@@ -31,7 +31,8 @@ jobs:
           pwd
           ls -ltr
           docker build -t flaskimage:${{ github.sha }} .
-        working-directory: GitHubActions-repo/flaskapp
+        working-directory: flaskapp
+
 
 
 
