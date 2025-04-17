@@ -25,19 +25,37 @@ jobs:
       - run: |
           echo "Checking pip version on GitHub-hosted runner"
           pip3 --version
+          # Create the requirements.txt file with package names
+          echo "boto" >> requirements.txt
+          echo "boto3" >> requirements.txt
+          echo "flask" >> requirements.txt
+          echo "black" >> requirements.txt
           pip install -r requirements.txt
 
-      # Apply Black formatting and push changes if it's a push event
+      # Apply Black formatting (only for 'push' events)
+      - if: success() && github.event_name == 'push'
+        run: |
+          echo "Applying black formatting"
+          black .  # Apply black formatting
+
+      # Commit and push changes if it's a push event (Avoid force-pushing to shared branches)
       - if: success() && github.event_name == 'push'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
           BRANCH_NAME="${{ github.ref_name }}"  # Correctly use GitHub Actions variable
-          echo "Branch Name is $BRANCH_NAME"  # This is for debugging, you can remove later
+          echo "Branch Name is $BRANCH_NAME"  # For debugging, can remove later
+          
           git fetch origin
-          git checkout $BRANCH_NAME
+          git checkout "$BRANCH_NAME"
           git pull --rebase origin main
-          black .  # Apply black formatting
           git add .
           git commit -m "Apply black formatting via GitHub Actions" || echo "No changes to commit"
-          git push --force-with-lease origin HEAD:$BRANCH_NAME
+          
+          # Check if the branch is 'main' to avoid force pushing to it
+          if [[ "$BRANCH_NAME" != "main" ]]; then
+            git push origin HEAD:"$BRANCH_NAME"
+          else
+            echo "Skipping push for 'main' branch"
+          fi
