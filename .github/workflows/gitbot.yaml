@@ -35,15 +35,16 @@ jobs:
           # Install dependencies from requirements.txt
           pip install -r requirements.txt
           
-      # If successful and it's a pull request, apply Black formatting and push changes
-      - if: success() && github.event_name == 'pull_request'
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          BRANCH_NAME=${{ github.head_ref || github.ref_name }}
-          git fetch origin
-          git checkout $BRANCH_NAME
-          git pull --rebase origin main
-          git add .
-          git commit -m "Apply black formatting via GitHub Actions" || echo "No changes to commit"
-          git push --force-with-lease origin HEAD:$BRANCH_NAME
+          # If successful and it's a push event, apply Black formatting and push changes
+            - if: success() && github.event_name == 'push'
+              run: |
+                git config --global user.name "github-actions[bot]"
+                git config --global user.email "github-actions[bot]@users.noreply.github.com"
+                BRANCH_NAME=${{ github.ref_name }}  # For push event, use ref_name
+                git fetch origin
+                git checkout $BRANCH_NAME
+                git pull --rebase origin main
+                git add .
+                git commit -m "Apply black formatting via GitHub Actions" || echo "No changes to commit"
+                git push --force-with-lease origin HEAD:$BRANCH_NAME
+
