@@ -27,12 +27,11 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
       - name: Build Flask Docker Image
         run: |
+          echo "Building Docker image in: $(pwd)"
+          pwd
+          ls -ltr
           docker build -t flaskimage:${{ github.sha }} .
-        working-directory: ./flaskapp
-      - name: Image checking and running container
-        run: |
-          docker images
-          docker run -p 5000:5000 --name flaskapp flaskimage:${{ github.sha }}
+        working-directory: GitHubActions-repo/flaskapp
 
 
 
