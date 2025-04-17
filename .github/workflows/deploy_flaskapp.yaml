@@ -1,4 +1,4 @@
-name: GH to deploy python based flask application
+name: GH to deploy python-based flask application
 on:
   push:
     branches:
@@ -15,10 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PORT_NUMBER: 5000
-      
     steps:
       - name: Code Cloning
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Get to know about the GH runner information
         run: |
           echo "Executor name is:" $(whoami)
@@ -27,8 +26,7 @@ jobs:
       - name: Setup GitHub Action Bot
         run: |
           git config --global user.name "github-actions[bot]"
-          git config --global user.email
-          "github-actions[bot]@users.noreply.github.com"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
       - name: Build Flask Docker Image
         run: |
           echo "Building Docker image in: $(pwd)"
@@ -41,14 +39,21 @@ jobs:
           docker images
           # Stop and remove previous container if exists
           if [ "$(docker ps -aq -f name=flaskapp)" ]; then
-          echo "Removing existing flaskapp container..."
-          docker rm -f flaskapp
+            echo "Removing existing flaskapp container..."
+            docker rm -f flaskapp
           fi
           # Run container
           docker run -d -p ${{ env.PORT_NUMBER }}:${{ env.PORT_NUMBER }} --name flaskapp flaskimage:${{ github.sha }}
-          # Wait and check if the app is up
+          # Wait and check if the app is up with retry mechanism
           echo "Waiting for app to start..."
-          sleep 8
-          # Check the app with curl -ivk
-          echo "Checking Flask app with curl -ivk..."
-          curl -ivk http://localhost:${{ env.PORT_NUMBER }} || echo "App did not start properly"
+          retries=10
+          until curl -ivk http://localhost:${{ env.PORT_NUMBER }}; do
+            if [ $retries -eq 0 ]; then
+              echo "App did not start properly"
+              exit 1
+            fi
+            retries=$((retries - 1))
+            echo "Retrying to check the app... ($retries retries left)"
+            sleep 5
+          done
+          echo "App is up and running!"
