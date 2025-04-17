@@ -1,0 +1,37 @@
+name: This is to setup workflow automation using github bot
+on:
+  push:
+    branches:
+      - main
+jobs:
+  example_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Running Linux commands
+        run: |
+          echo"Your name is:" $(whoami)
+          echo "Github workflow path is:" $(pwd)
+          echo "Github hosted machine name is:" $(hostname)
+      - name: Setup Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      - name: Creating a dummy file
+        run: |
+          echo "India is my country" > dummy.txt
+          echo "I live in bangalore" >> dummy.txt
+          echo "I work as Senior Software Engineer" >> dummy.txt
+      - name: Viewing the content of dummy.txt file
+        run: |
+          cat dummy.txt
+          echo "sleeping for 3 seconds"
+          sleep 3
+      - name: Commit and push the changes
+        run: |
+          git add dummy.txt
+          git commit -m "workflow automated with the help of github bot"
+          git push
+      - name: Check GitHub Actions bot user
+        run: git log -1 --oneline
