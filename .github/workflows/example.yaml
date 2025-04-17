@@ -1,0 +1,27 @@
+name: Demo Workflow
+on:
+  push:
+    branches:
+      - main
+jobs:
+  example_job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      - name: Make changes
+        run: |
+          echo "Some changes" >> example.txt
+      - name: Commit changes
+        run: |
+          git add example.txt
+          git commit -m "Automated commit by GitHub Actions"
+          git push
+      - name: Check GitHub Actions bot user
+        run: git log -1 --oneline
