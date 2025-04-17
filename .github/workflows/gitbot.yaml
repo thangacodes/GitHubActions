@@ -1,0 +1,49 @@
+name: Testing github bot
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repository
+      - uses: actions/checkout@v4
+
+      # Set up Python environment
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.x  # Using a more flexible version of Python
+
+      # Create requirements.txt and install dependencies
+      - run: |
+          echo "Checking pip version on GitHub-hosted runner"
+          pip3 --version
+
+          # Create the requirements.txt file with package names
+          echo "boto" >> requirements.txt
+          echo "boto3" >> requirements.txt
+          echo "flask" >> requirements.txt
+
+          # Show the contents of the requirements.txt file
+          echo "Viewing the requirements.txt file contents"
+          cat requirements.txt
+
+          # Install dependencies from requirements.txt
+          pip install -r requirements.txt
+          
+      # If successful and it's a pull request, apply Black formatting and push changes
+      - if: success() && github.event_name == 'pull_request'
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          BRANCH_NAME=${{ github.head_ref || github.ref_name }}
+          git fetch origin
+          git checkout $BRANCH_NAME
+          git pull --rebase origin main
+          git add .
+          git commit -m "Apply black formatting via GitHub Actions" || echo "No changes to commit"
+          git push --force-with-lease origin HEAD:$BRANCH_NAME
