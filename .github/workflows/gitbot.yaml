@@ -27,6 +27,7 @@ jobs:
           echo "boto" >> requirements.txt
           echo "boto3" >> requirements.txt
           echo "flask" >> requirements.txt
+          echo "black" >> requirements.txt
 
           # Show the contents of the requirements.txt file
           echo "Viewing the requirements.txt file contents"
