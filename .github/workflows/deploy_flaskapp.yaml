@@ -27,9 +27,8 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
       - name: Build Flask Docker Image
         run: |
-          docker build -t flaskimage:${{ github.sha }} .
+          docker build -t flaskimage:${{ github.sha }} ./flaskapp
         working-directory: GitHubActions-repo/flaskapp
-
       - name: Image checking and running container
         run: |
           docker images
