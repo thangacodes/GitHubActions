@@ -9,6 +9,7 @@ TFLint helps in identifying potential errors and violations of best practices in
 $ brew install tflint            //Install tflint on mac using brew
 
 $ tflint --version
+
 TFLint version 0.53.0
 ruleset.terraform (0.9.1-bundled)
 
