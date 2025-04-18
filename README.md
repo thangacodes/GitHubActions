@@ -47,6 +47,12 @@ Navigate to Flask App dir
 
 [FlaskApp](https://github.com/thangacodes/GitHubActions-repo/tree/main/flaskapp)
 
+Sample YAML files for setting up GitHub Actions workflows.
 
+[yamlfiles](https://github.com/thangacodes/GitHubActions-repo/tree/main/sampleyaml)
+
+Simple Terraform scripts to test TFLint
+
+[terracode](https://github.com/thangacodes/GitHubActions-repo/tree/main/terra-codes)
 
 
