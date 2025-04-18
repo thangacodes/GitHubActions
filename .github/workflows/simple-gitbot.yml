@@ -23,9 +23,17 @@ jobs:
         run: |
           git config --global user.name "${{ env.GITBOT_USERNAME }}"
           git config --global user.email "${{ env.GITBOT_USERMAIL }}"
+      - name: Github Host machine information
+        run: |
+          echo "Your Git Hosted machine name is:" $(hostname)
+          echo "Your Git Hosted machine job folder path is:" $(pwd)
+          echo "Your Git Hosted machine IP Address is:" $(hostname -i)
+          sleep 5
       - name: Add a new file
         run: |
           echo "This file was updated by GitHub Actions on $(date)" >> bot_output.txt
+          pwd
+          ls -ltr
       - name: Commit Changes
         run: |
           git add bot_output.txt
