@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome to the Simple Node JS static page</title>
+  <style>
+    button {
+      background-color: #00ff80;
+      color: black;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-right: 10px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .green-button {
+      background-color: #28a745; /* Green */
+    }
+
+    .green-button:hover {
+      background-color: #1e7e34;
+    }
+
+    .container {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="color: green;">Welcome to the Simple Node JS static page</h1>
+
+  <div class="container">
+    <button onclick="askForName()"><bold></bold>Click to enter your name</button>
+    <span id="name-button-container"></span>
+  </div>
+
+  <div class="container">
+    <button onclick="askForProfession()">Click to enter your profession</button>
+    <span id="profession-button-container"></span>
+  </div>
+
+  <script>
+    let savedName = '';
+    let savedProfession = '';
+
+    function askForName() {
+      const userName = prompt("Please enter your name:");
+      const container = document.getElementById('name-button-container');
+      container.innerHTML = ''; // Clear any existing button
+
+      if (userName) {
+        savedName = userName;
+        alert("Your good name is: " + userName);
+
+        const showBtn = document.createElement('button');
+        showBtn.className = 'green-button';
+        showBtn.textContent = 'Show Name';
+        showBtn.onclick = function() {
+          alert("Your name is: " + savedName);
+        };
+
+        container.appendChild(showBtn);
+      } else {
+        alert("You didn't enter a name.");
+      }
+    }
+
+    function askForProfession() {
+      const userProfession = prompt("Please enter your profession:");
+      const container = document.getElementById('profession-button-container');
+      container.innerHTML = ''; // Clear any existing button
+
+      if (userProfession) {
+        savedProfession = userProfession;
+        alert("Your profession is: " + userProfession);
+
+        const showBtn = document.createElement('button');
+        showBtn.className = 'green-button';
+        showBtn.textContent = 'Show Profession';
+        showBtn.onclick = function() {
+          alert("Your profession is: " + savedProfession);
+        };
+
+        container.appendChild(showBtn);
+      } else {
+        alert("You didn't enter a profession.");
+      }
+    }
+  </script>
+</body>
+</html>
