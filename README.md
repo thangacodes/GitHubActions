@@ -2,21 +2,28 @@
 # Github-actions-workflows:
 The integration of GitHub Actions workflows with Terraform-related tools, including TFLint and TFsec, has been successfully completed.
 
-# TFLINT:
+TFLINT:
+
 TFLint helps in identifying potential errors and violations of best practices in your Terraform configurations before applying them.
+
 $ brew install tflint            //Install tflint on mac using brew
+
 $ tflint --version
+
 TFLint version 0.53.0
 + ruleset.terraform (0.9.1-bundled)
 
-# TFSEC: 
+TFSEC: 
+
 TFsec uses static analysis of your Terraform code to identify potential security issues.
+
 $ brew install tfsec             //Install tfsec on mac using brew
+
 $ tfsec --version
 v1.28.10
 
 # Reference links:
-=================
+
 1) [tflint](https://github.com/terraform-linters/tflint)
 2) [tfsec](https://github.com/aquasecurity/tfsec)
 
