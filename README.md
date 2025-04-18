@@ -40,7 +40,12 @@ In this example, the IAM role has access to AWS services such as EC2 and S3 buck
 # GitHub Action:
 
 Also, GitHub Action workflow YAML files are kept in the directory.
+
 [GH Action Workflow](https://github.com/thangacodes/GitHubActions-repo/tree/main/.github/workflows)
+
+Navigate to Flask App dir
+
+[FlaskApp](https://github.com/thangacodes/GitHubActions-repo/tree/main/flaskapp)
 
 
 
