@@ -1,4 +1,3 @@
-```bash
 
 # Github-actions-workflows:
 The integration of GitHub Actions workflows with Terraform-related tools, including TFLint and TFsec, has been successfully completed.
@@ -18,14 +17,15 @@ v1.28.10
 
 # Reference links:
 =================
-1) https://github.com/terraform-linters/tflint
-2) https://github.com/aquasecurity/tfsec
+1) [tflint](https://github.com/terraform-linters/tflint)
+2) [tfsec](https://github.com/aquasecurity/tfsec)
 
 Terraform scripts are stored in the terra-codes folder, while OIDC roles with IAM policies are managed in the AWS_IAM_ROLE_POLICY folder.
 
 The following components are required to integrate OpenID Connect (OIDC) with GitHub Actions on AWS:
 
 a) A custom trust policy for the IAM role
+
 b) Inline policies for the services you want to communicate with via GitHub Actions
 
 In this example, the IAM role has access to AWS services such as EC2 and S3 buckets.
