@@ -6,7 +6,7 @@ The integration of GitHub Actions workflows with Terraform-related tools, includ
 
 TFLint helps in identifying potential errors and violations of best practices in your Terraform configurations before applying them.
 
-$ brew install tflint            //Install tflint on mac using brew
+$ brew install tflint            #Install tflint on mac using brew
 
 $ tflint --version
 
