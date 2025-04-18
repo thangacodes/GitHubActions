@@ -10,6 +10,7 @@ on:
       - main
       - dev
       - stage
+  workflow_dispatch:
 jobs:
   flask_job:
     runs-on: ubuntu-latest
