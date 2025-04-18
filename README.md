@@ -6,7 +6,7 @@ The integration of GitHub Actions workflows with Terraform-related tools, includ
 
 TFLint helps in identifying potential errors and violations of best practices in your Terraform configurations before applying them.
 
-$ brew install tflint            #Install tflint on mac using brew
+$ brew install tflint            (Installing tflint on macOS Sequoia)
 
 $ tflint --version
 
@@ -36,3 +36,12 @@ a) A custom trust policy for the IAM role
 b) Inline policies for the services you want to communicate with via GitHub Actions
 
 In this example, the IAM role has access to AWS services such as EC2 and S3 buckets.
+
+# GitHub Action:
+
+Also, GitHub Action workflow YAML files are kept in the directory.
+[GH Action Workflow](https://github.com/thangacodes/GitHubActions-repo/tree/main/.github/workflows)
+
+
+
+
