@@ -1,0 +1,31 @@
+name: Setting up GitHub Bot
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - stage
+  pull_request:
+    branches:
+      - main
+      - dev
+      - stage
+jobs:
+  gHBot_Action:
+  runs-on: ubuntu-latest
+  env:
+    OWNER="admin@try-devops.xyz"
+    COMPANY="try-devops.xyz"
+    GITBOT_USERNAME="github-actions[bot]"
+    GITBOT_USERMAIL="github-actions[bot]@users.noreply.github.com"
+  steps:
+    - name: Setup GitHub Action Bot
+      run: |
+        git config --global user.name "${{ env.GITBOT_USERNAME }}"
+        git config --global user.email "${{ env.GITBOT_USERMAIL }}"
+    - name: Get to know about GitHub Action
+      run: |
+        echo "Executor name is:" $(whoami)
+        echo "GitHub workflow path is:" $(pwd)
+        echo "GitHub hosted machine name is:" $(hostname)
+        echo "GitHub hosted machine IP address:" $(hostname -i)
