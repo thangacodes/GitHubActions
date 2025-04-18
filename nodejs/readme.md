@@ -6,7 +6,7 @@ Normally, JavaScript runs in the browser (like on websites).
 
 Node.js lets you use JavaScript for backend development, like building servers, APIs, or running scripts.
 
-# To run a JavaScript file using Node.js, use the following command in your terminal:
+To run a JavaScript file using Node.js, use the following command in your terminal:
 
 node file_name.js
 
