@@ -1,9 +1,17 @@
-What is Node.js?
+What is Node (or Node.js)?
 
-Node.js® is a free, open-source, cross-platform JavaScript runtime environment that lets developers create servers, web apps, command line tools and scripts.
+Node.js is a tool that lets you run JavaScript code outside of a web browser, usually on your computer or a server.
 
-Run JavaScript Everywhere
+Normally, JavaScript runs in the browser (like on websites).
 
-# To know more about node.js
+Node.js lets you use JavaScript for backend development, like building servers, APIs, or running scripts.
 
-[Node.js](https://nodejs.org/en)
+# To run a JavaScript file using Node.js, use the following command in your terminal:
+
+node file_name.js
+
+Example:
+
+node name.js
+
+Your good name is:David Moses
