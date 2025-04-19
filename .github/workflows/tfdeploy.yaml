@@ -1,16 +1,14 @@
 name: "Terraform action"
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  # push:
+  #   branches:
+  #     - main
+  # pull_request:
   workflow_dispatch:
-
 permissions:
   id-token: write # Required for AWS OIDC connection
   contents: read # Required for actions/checkout
   pull-requests: write # Required for GitHub bot to comment on PR
-
 env:
   TF_LOG: INFO
   AWS_REGION: ${{ secrets.TF_AWS_REGION }}
