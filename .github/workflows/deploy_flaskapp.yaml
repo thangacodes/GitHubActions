@@ -1,15 +1,16 @@
 name: GH to deploy python-based flask application
+# on:
+  # push:
+  #   branches:
+  #     - main
+  #     - dev
+  #     - stage
+  # pull_request:
+  #   branches:
+  #     - main
+  #     - dev
+  #     - stage
 on:
-  push:
-    branches:
-      - main
-      - dev
-      - stage
-  pull_request:
-    branches:
-      - main
-      - dev
-      - stage
   workflow_dispatch:
 jobs:
   flask_job:
