@@ -19,7 +19,7 @@ jobs:
         echo "List Out the files in Current directory: $(pwd)"
         cd terra-codes/argocd
         ls -al
-        echo "sleep for '3' seconds
+        echo "sleep for '3' seconds"
         sleep 3
         echo "download terraform inti script from other repository"
         wget -O init_script_for_terraform.sh https://raw.githubusercontent.com/thangacodes/terraform_usecases/main/init_script_for_terraform.sh && \
@@ -33,5 +33,3 @@ jobs:
         rm -rf *
         echo "Workspace cleaned. Listing contents to confirm:"
         ls -al
-
-        
