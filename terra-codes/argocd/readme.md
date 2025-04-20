@@ -11,7 +11,7 @@ How do I use this Terraform script to deploy an EKS cluster?
 It's a public repository anyone can make use of this repository to provision/setup EKS cluster in AWS. Please follow the process,
 
 1) Clone the repository
-   git clone [argocd_repo](https://github.com/thangacodes/GitHubActions-repo.git)
+   git clone [argocd repo](https://github.com/thangacodes/GitHubActions-repo.git)
 
 2) Navigate to the directory containing the Terraform script
    cd terra-codes/argocd
@@ -19,9 +19,15 @@ It's a public repository anyone can make use of this repository to provision/set
 3) Run the Terraform commands as shown below,
 
    terraform init
+   
    terraform validate
+   
    terraform plan
+   
    terraform apply --auto-approve
+   
    terraform destroy --auto-approve
+
+# Please note: Change the VPC CIDR, subnet ranges, cluster name, and tag information as per your preferences
    
    
