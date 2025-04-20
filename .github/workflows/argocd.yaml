@@ -1,18 +1,14 @@
 name: Argo CD deployment on EKS clsuter in AWS
-# on:
-#   push:
-#     branches:
-#       - main
-#   pull_request:
-#     branches:
-#       - main
 on:
   workflow_dispatch:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      INIT_SCRIPT_REPO: https://raw.githubusercontent.com/thangacodes/terraform_usecases/main/init_script_for_terraform.sh
+      SCRIPT_FILE: init_script_for_terraform.sh
     steps:
-    - name: Checkout
+    - name: CheckOut
       uses: actions/checkout@v3
     - name: Navigate to the Terraform scripts directory
       run: |
@@ -22,14 +18,14 @@ jobs:
         echo "sleep for '3' seconds"
         sleep 3
         echo "download terraform inti script from other repository"
-        wget -O init_script_for_terraform.sh https://raw.githubusercontent.com/thangacodes/terraform_usecases/main/init_script_for_terraform.sh && \
-        chmod +x init_script_for_terraform.sh
-        # ./init_script_for_terraform.sh
+        wget -O ${{ env.SCRIPT_FILE }} ${{ env.INIT_SCRIPT_REPO }} && \
+        chmod +x ${{ env.SCRIPT_FILE }}
+        # ./${{ env.SCRIPT_FILE }}
         ls -al
         sleep 5
-    - name: cleanup
+    - name: Workspace CleanUp
       run: |
         echo "Cleaning up workspace..."
         rm -rf *
-        echo "Workspace cleaned. Listing contents to confirm:"
-        ls -al
+        echo "Listing contents after Workspace cleaned up.."
+        ls -al $(pwd)
