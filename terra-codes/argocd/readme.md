@@ -18,15 +18,18 @@ It's a public repository anyone can make use of this repository to provision/set
 
 3) Run the Terraform commands as shown below,
 
-   terraform init
-   
-   terraform validate
-   
-   terraform plan
-   
-   terraform apply --auto-approve
-   
-   terraform destroy --auto-approve
+   terraform init, validate, plan, apply, destroy
+
+4) Instead of manually running Terraform commands, you can use the Terraform init_script below.
+
+   [terraform-init-script](https://github.com/thangacodes/terraform_usecases/blob/main/init_script_for_terraform.sh)
+
+   There are two ways we can use it:
+
+   You can directly download the file using wget by running the following command in your terminal:
+
+   a) wget https://raw.githubusercontent.com/thangacodes/terraform_usecases/main/init_script_for_terraform.sh
+
 
 Please note: Change the VPC CIDR, subnet ranges, cluster name, and tag information as per your preferences..
    
