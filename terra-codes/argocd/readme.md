@@ -34,7 +34,7 @@ It's a public repository anyone can make use of this repository to provision/set
 
 5) If you want to clone the entire repository (which includes the script), you can use:
 
-   a) git clone https://github.com/thangacodes/terraform_usecases.git
+   a) git [tf-script](https://github.com/thangacodes/terraform_usecases.git)
 
    b) Then navigate to the directory where the script is located:
 
