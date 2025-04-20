@@ -1,6 +1,6 @@
 # Argo CD:
 
-Argo CD is a declarative, GitOps-based continuous delivery tool for Kubernetes
+Argo CD is a declarative, GitOps-based continuous delivery tool for Kubernetes. Detailed information to be found in [argo cd](https://argo-cd.readthedocs.io/en/stable/)
 
 The argocd folder contains all the Terraform scripts required to spin up an EKS cluster using the latest version (1.32.0) along with a worker node group named "2". 
 
