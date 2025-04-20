@@ -24,6 +24,7 @@ v1.28.10
 
 1) [tflint](https://github.com/terraform-linters/tflint)
 2) [tfsec](https://github.com/aquasecurity/tfsec)
+3) [tflint-ruleset-terraform](https://github.com/terraform-linters/tflint-ruleset-terraform)
 
 Terraform scripts are stored in the terra-codes folder, while OIDC roles with IAM policies are managed in the AWS_IAM_ROLE_POLICY folder.
 
