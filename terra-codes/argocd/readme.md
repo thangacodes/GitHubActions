@@ -28,8 +28,19 @@ It's a public repository anyone can make use of this repository to provision/set
 
    You can directly download the file using wget by running the following command in your terminal:
 
-   a) wget https://raw.githubusercontent.com/thangacodes/terraform_usecases/main/init_script_for_terraform.sh
+   a) wget [init-script](https://github.com/thangacodes/terraform_usecases/blob/main/init_script_for_terraform.sh)
 
+   b) sh init_script_for_terraform.sh
+
+5) If you want to clone the entire repository (which includes the script), you can use:
+
+   a) git clone https://github.com/thangacodes/terraform_usecases.git
+
+   b) Then navigate to the directory where the script is located:
+
+      cd terraform_usecases
+
+      sh init_script_for_terraform.sh
 
 Please note: Change the VPC CIDR, subnet ranges, cluster name, and tag information as per your preferences..
    
