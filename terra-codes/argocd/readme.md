@@ -28,6 +28,6 @@ It's a public repository anyone can make use of this repository to provision/set
    
    terraform destroy --auto-approve
 
-# Please note: Change the VPC CIDR, subnet ranges, cluster name, and tag information as per your preferences
+Please note: Change the VPC CIDR, subnet ranges, cluster name, and tag information as per your preferences..
    
    
