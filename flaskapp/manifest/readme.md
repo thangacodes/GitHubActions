@@ -6,5 +6,7 @@ Use a tool like envsubst to inject the environment variable before applying the 
 envsubst:
 
 export REPO_NAME="https://github.com/thangacodes/GitHubActions-repo.git"
+
 envsubst < application-template.yaml > argocd-app.yaml
+
 kubectl apply -f argocd-app.yaml
