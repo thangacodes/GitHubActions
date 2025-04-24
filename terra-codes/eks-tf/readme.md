@@ -22,7 +22,7 @@ Folder structure:
 ├── providers.tf
 └── variables.tf
 
-5 directories, 14 files
+4 directories, 14 files
 
 # Usage:
 
