@@ -10,7 +10,6 @@ resource "aws_security_group" "eks" {
     Name = "${var.name}-eks-sg"
   }
 }
-
 resource "aws_security_group" "nodes" {
   vpc_id = var.vpc_id
   ingress {
@@ -29,8 +28,7 @@ resource "aws_security_group" "nodes" {
     Name = "${var.name}-nodes-sg"
   }
 }
-
-resource "aws_eks_cluster" "this" {
+resource "aws_eks_cluster" "argocd" {
   name     = var.name
   role_arn = var.cluster_role_arn
   vpc_config {
@@ -38,12 +36,12 @@ resource "aws_eks_cluster" "this" {
     security_group_ids = [aws_security_group.eks.id]
   }
 }
-
-resource "aws_eks_node_group" "this" {
-  cluster_name    = aws_eks_cluster.this.name
+resource "aws_eks_node_group" "argocd" {
+  cluster_name    = aws_eks_cluster.argocd.name
   node_group_name = "${var.name}-node-group"
   node_role_arn   = var.node_role_arn
   subnet_ids      = var.subnet_ids
+
   scaling_config {
     desired_size = var.node_desired
     max_size     = var.node_max
@@ -67,4 +65,3 @@ resource "aws_eks_node_group" "this" {
     "ProjectName" = "ArgoCd-Development"
   }
 }
-
