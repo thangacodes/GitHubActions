@@ -1,3 +1,29 @@
+Folder structure:
+
+.
+├── backend.tf
+├── main.tf
+├── modules
+│   ├── eks
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   └── variables.tf
+│   ├── iam
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   └── variables.tf
+│   └── vpc
+│       ├── main.tf
+│       ├── outputs.tf
+│       └── variables.tf
+├── outputs.tf
+├── providers.tf
+└── variables.tf
+
+5 directories, 14 files
+
+# Usage:
+
 How to Clone and Run Terraform Commands?
 
 1) Clone the repository:
