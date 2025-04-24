@@ -1,5 +1,5 @@
 variable "region" {
-  description = "The place or DC where you want to provision resources in aws"
+  description = "The DC where we provision aws resources virtually"
   type        = string
   default     = "ap-south-1"
 }
