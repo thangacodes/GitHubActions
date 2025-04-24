@@ -1,5 +1,5 @@
-variable "ssh_key_name" {
-  description = "The name of the SSH key pair to use for EKS node group remote access"
+variable "region" {
+  description = "The place or DC where you want to provision resources in aws"
   type        = string
-  default     = "mac"
+  default     = "ap-south-1"
 }
