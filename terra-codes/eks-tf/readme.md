@@ -1,4 +1,4 @@
-Folder structure:
+# Folder structure:
 
 <img src="https://github.com/user-attachments/assets/7226d812-9241-4f27-ac29-b7dda009aa75" width="200" height="200" />
 
