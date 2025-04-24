@@ -9,7 +9,7 @@ How to Clone and Run Terraform Commands?
 
 1) Clone the repository:
    
-    git clone https://github.com/thangacodes/GitHubActions.git
+    git clone [GitRepo](https://github.com/thangacodes/GitHubActions.git)
    
 3) Navigate to the directory where terraform scripts is exist:
 
