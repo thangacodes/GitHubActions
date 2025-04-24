@@ -17,6 +17,6 @@ How to Clone and Run Terraform Commands?
    
 4) Make use of terraform init script:
 
-   [tf-init-script](https://github.com/thangacodes/terraform_usecases)
+   [tf-init-script](https://github.com/thangacodes/terraform_usecases/blob/main/init_script_for_terraform.sh))
 
 Please note: You may update the variables.tf and main.tf files in the root module to reflect your specific requirements..
