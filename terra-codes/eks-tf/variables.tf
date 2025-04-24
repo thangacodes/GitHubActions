@@ -3,3 +3,7 @@ variable "region" {
   type        = string
   default     = "ap-south-1"
 }
+variable "ssh_key_name" {
+  type = string
+  default = "mac"
+}
