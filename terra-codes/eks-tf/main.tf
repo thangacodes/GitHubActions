@@ -28,11 +28,3 @@ module "eks" {
   node_instance_types = ["t2.medium"]
   ssh_key_name        = var.ssh_key_name
 }
-
-output "eks_endpoint" {
-  value = module.eks.cluster_endpoint
-}
-
-output "eks_arn" {
-  value = module.eks.cluster_arn
-}
