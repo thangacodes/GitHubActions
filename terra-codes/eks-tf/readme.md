@@ -1,25 +1,39 @@
-```bash
-
 Folder structure:
 
 .
 ├── backend.tf
+
 ├── main.tf
+
 ├── modules
+
 │   ├── eks
+
 │   │   ├── main.tf
+
 │   │   ├── outputs.tf
+
 │   │   └── variables.tf
+
 │   ├── iam
+
 │   │   ├── main.tf
+
 │   │   ├── outputs.tf
+
 │   │   └── variables.tf
 │   └── vpc
+
 │       ├── main.tf
+
 │       ├── outputs.tf
+
 │       └── variables.tf
+
 ├── outputs.tf
+
 ├── providers.tf
+
 └── variables.tf
 
 4 directories, 14 files
