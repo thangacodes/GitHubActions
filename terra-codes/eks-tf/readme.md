@@ -1,42 +1,7 @@
 Folder structure:
 
-.
-├── backend.tf
+![image](https://github.com/user-attachments/assets/7226d812-9241-4f27-ac29-b7dda009aa75)
 
-├── main.tf
-
-├── modules
-
-│   ├── eks
-
-│   │   ├── main.tf
-
-│   │   ├── outputs.tf
-
-│   │   └── variables.tf
-
-│   ├── iam
-
-│   │   ├── main.tf
-
-│   │   ├── outputs.tf
-
-│   │   └── variables.tf
-│   └── vpc
-
-│       ├── main.tf
-
-│       ├── outputs.tf
-
-│       └── variables.tf
-
-├── outputs.tf
-
-├── providers.tf
-
-└── variables.tf
-
-4 directories, 14 files
 
 # Usage:
 
