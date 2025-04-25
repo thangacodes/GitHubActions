@@ -3,8 +3,9 @@ on:
   workflow_dispatch:
 env:
   REGION: "ap-south-1"
-  IAMROLETOASSUME: "arn:aws:iam::282526987315:role/AWS-GITHUB-OIDC-ASSUME-ROLE"
-  SESSION-NAME: "OIDC"
+  IAMROLE_TO_ASSUME: "arn:aws:iam::282526987315:role/AWS-GITHUB-OIDC-ASSUME-ROLE"
+  SESSION_NAME: "OIDC"
+  TFCODE_PATH: "terra-codes/tflint_tf"
 permissions:
   id-token: write
   contents: read
@@ -17,10 +18,20 @@ jobs:
       - name: "Configure AWS Credentials"
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: ${{ env.IAMROLETOASSUME }}
-          role-session-name: ${{ env.SESSION-NAME }}
+          role-to-assume: ${{ env.IAMROLE_TO_ASSUME }}
+          role-session-name: ${{ env.SESSION_NAME }}
           aws-region: ${{ env.REGION }}
-      - name: "Aws CLI execution"
+      - name: "AWS CLI execution"
         run: |
           aws sts get-caller-identity
           aws s3 ls
+      - name: "Changing to Terraform Code Path"
+        run: |
+          echo "Navigating to the terraform scripts directory"
+          cd ${{ env.TFCODE_PATH }}
+          echo "running terraform commands one by one"
+          terraform init
+          terraform fmt
+          terraform validate
+          terraform plan
+          
