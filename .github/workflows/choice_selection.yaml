@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Select environment'
+        description: 'Select environment (dev, stage, prod)'
         required: true
         default: 'dev'
         type: choice
@@ -25,6 +25,8 @@ on:
         default: 'terra-codes/tflint_tf'
 env:
   TERRAFORM_VERSION: "1.10.5"
+  STAGE: "terra-codes/scripts"
+  PROD: "terra-codes/scripts"
 permissions:
   id-token: write
   contents: read
@@ -60,10 +62,20 @@ jobs:
         if: ${{ github.event.inputs.environment == 'dev' }}
         run: |
           echo "Running DEV tasks..."
-          cd $TFCODE_PATH
+          cd ${{ env.TFCODE_PATH }}
       - name: Run for STAGE
         if: ${{ github.event.inputs.environment == 'stage' }}
-        run: echo "Running STAGE tasks..."
+        run: |
+          echo "Running STAGE tasks..."
+          echo "Navigating to staging script"
+          cd ${{ env.STAGE }}
+          ls -l 
+          sh stage.sh
       - name: Run for PROD
         if: ${{ github.event.inputs.environment == 'prod' }}
-        run: echo "Running PROD tasks..."
+        run: 
+          echo "Running PROD tasks..."
+          echo "Navigating to staging script"
+          cd ${{ env.PROD }}
+          ls -l 
+          sh stage.sh
