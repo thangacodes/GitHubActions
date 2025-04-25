@@ -6,6 +6,10 @@ output "disk_size" {
   value = aws_eks_node_group.argocd.disk_size
 }
 
-output "endpoint" {
+output "cluster_endpoint" {
   value = aws_eks_cluster.argocd.endpoint
+}
+
+output "cluster_arn" {
+  value = aws_eks_cluster.argocd.arn
 }
