@@ -67,15 +67,15 @@ jobs:
         if: ${{ github.event.inputs.environment == 'stage' }}
         run: |
           echo "Running STAGE tasks..."
-          echo "Navigating to staging script"
+          echo "Navigating to staging script path:" ${{ env.STAGE }}
           cd ${{ env.STAGE }}
           ls -l 
-          sh stage.sh
+          bash stage.sh
       - name: Run for PROD
         if: ${{ github.event.inputs.environment == 'prod' }}
         run: 
           echo "Running PROD tasks..."
-          echo "Navigating to staging script"
+          echo "Navigating to staging script path:" ${{ env.PROD }}
           cd ${{ env.PROD }}
           ls -l 
-          sh prod.sh
+          bash prod.sh
