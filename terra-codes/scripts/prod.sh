@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Script executed at:" $(date '+%Y-%m-%d %H:%M:%S')
 echo "###################################"
-echo "#        PRPD Execution           #"
+echo "#        PROD Execution           #"
 echo "###################################"
 echo "Get to know about the GH runner information"
 echo "Executor name is:" $(whoami)
