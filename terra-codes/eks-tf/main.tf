@@ -20,8 +20,8 @@ module "eks" {
   name                = "argocd"
   vpc_id              = module.vpc.vpc_id
   subnet_ids          = module.vpc.subnet_ids
-  cluster_role_arn    = module.iam.eks_role_arn
-  node_role_arn       = module.iam.node_role_arn
+  cluster_role_arn    = module.iam.eks_cluster_role_arn
+  node_role_arn       = module.iam.nodegroup_role_arn
   node_desired        = 2
   node_min            = 2
   node_max            = 2
