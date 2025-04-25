@@ -28,6 +28,12 @@ jobs:
       SESSION_NAME: ${{ inputs.session_name }}
       TFCODE_PATH:  ${{ inputs.tfcode_path }}
     steps:
+      - name: "Checking input values given by an user"
+        run: |
+          echo "User entered the change number is: ${{ inputs.change_number }}"
+          echo "AWS session name is: ${{ inputs.session_name }}"
+          echo "User entered tf code path is: ${{ inputs.tfcode_path }}"
+          echo "Sleeping for 10 seconds before checkout the code"
       - name: "Checkout Code"
         uses: actions/checkout@v3
       - name: "Configure AWS Credentials via OIDC"
