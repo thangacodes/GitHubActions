@@ -6,32 +6,35 @@ env:
   IAMROLE_TO_ASSUME: "arn:aws:iam::282526987315:role/AWS-GITHUB-OIDC-ASSUME-ROLE"
   SESSION_NAME: "OIDC"
   TFCODE_PATH: "terra-codes/tflint_tf"
+  TERRAFORM_VERSION: "1.10.5"
 permissions:
   id-token: write
   contents: read
 jobs:
-  OIDC-INTEGRATION:
+  oidc-integration:
     runs-on: ubuntu-latest
     steps:
-      - name: "Code CheckOut"
+      - name: "Checkout Code"
         uses: actions/checkout@v3
-      - name: "Configure AWS Credentials"
+      - name: "Configure AWS Credentials via OIDC"
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: ${{ env.IAMROLE_TO_ASSUME }}
           role-session-name: ${{ env.SESSION_NAME }}
           aws-region: ${{ env.REGION }}
-      - name: "AWS CLI execution"
+      - name: "Verify AWS Identity"
         run: |
+          echo "Verifying AWS identity"
           aws sts get-caller-identity
+          echo "Listing S3 buckets"
           aws s3 ls
-      - name: Setup Terraform
+      - name: Setup Terraform CLI
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: 1.10.5
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
       - name: "Changing to Terraform Code Path"
         run: |
-          echo "Navigating to the terraform scripts directory"
+          echo "Navigating to Terraform code directory: $TFCODE_PATH"
           cd ${{ env.TFCODE_PATH }}
           echo "running terraform commands one by one"
           terraform init
