@@ -27,7 +27,7 @@ on:
         default: 'terra-codes/eks-tf'
         type: choice
         options:
-          - terra-codes/tflint_tf
+          - terra-codes/eks-tf
           - terra-codes/scripts/stage
           - terra-codes/scripts/prod
 env:
