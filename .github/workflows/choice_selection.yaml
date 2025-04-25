@@ -25,8 +25,8 @@ on:
         default: 'terra-codes/tflint_tf'
 env:
   TERRAFORM_VERSION: "1.10.5"
-  STAGE: "terra-codes/scripts"
-  PROD: "terra-codes/scripts"
+  STAGE: "terra-codes/scripts/stage"
+  PROD: "terra-codes/scripts/prod"
 permissions:
   id-token: write
   contents: read
@@ -78,4 +78,4 @@ jobs:
           echo "Navigating to staging script"
           cd ${{ env.PROD }}
           ls -l 
-          sh stage.sh
+          sh prod.sh
