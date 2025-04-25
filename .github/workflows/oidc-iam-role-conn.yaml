@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 env:
   REGION: "ap-south-1"
-  IAMROLETOASSUME: "arn:aws:iam::282526987315:role/oidc-github-aws-connection"
+  IAMROLETOASSUME: "arn:aws:iam::282526987315:role/AWS-GITHUB-OIDC-ASSUME-ROLE"
   SESSION-NAME: "OIDC"
 permissions:
   id-token: write
