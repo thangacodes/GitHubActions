@@ -66,6 +66,10 @@ jobs:
         run: |
           echo "Running DEV tasks..."
           cd ${{ env.SCRIPT_PATH }}
+          terraform init
+          terraform fmt
+          terraform validate
+          terraform plan
       - name: Run for STAGE
         if: ${{ github.event.inputs.environment == 'stage' }}
         run: |
