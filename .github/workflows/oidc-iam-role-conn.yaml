@@ -2,8 +2,6 @@ name: AWS integration with OIDC
 on:
   workflow_dispatch:
 env:
-  REGION: "ap-south-1"
-  IAMROLE_TO_ASSUME: "arn:aws:iam::282526987315:role/AWS-GITHUB-OIDC-ASSUME-ROLE"
   SESSION_NAME: "OIDC"
   TFCODE_PATH: "terra-codes/tflint_tf"
   TERRAFORM_VERSION: "1.10.5"
@@ -19,9 +17,9 @@ jobs:
       - name: "Configure AWS Credentials via OIDC"
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: ${{ env.IAMROLE_TO_ASSUME }}
+          role-to-assume: ${{ secrets.IAM_ROLE_TO_ASSUME }}
           role-session-name: ${{ env.SESSION_NAME }}
-          aws-region: ${{ env.REGION }}
+          aws-region: ${{ vars.AWS_REGION }}
       - name: "Verify AWS Identity"
         run: |
           echo "Verifying AWS identity"
