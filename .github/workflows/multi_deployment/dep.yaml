@@ -1,0 +1,97 @@
+name: Multi Env Deployment
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Select environment (dev, stage, prod)'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - stage
+          - prod
+      deployment_type:
+        description: 'Select the deployment (Infra, Application, Upgrade)'
+        required: true
+        default: 'Infra'
+        options:
+          - Infrastructure
+          - Application
+          - Upgrade
+      change_number:
+        description: 'Change number'
+        required: true
+        default: 'CHG3XXXX'
+      session_name:
+        description: 'AWS Session Name'
+        required: true
+        default: 'OIDC'
+      script_path:
+        description: 'Iac and App Script directory'
+        required: true
+        default: 'terra-codes/scripts/stage'
+        options:
+          - terra-codes/eks-tf
+          - terra-codes/tflint_tf
+          - flaskapp
+env:
+  TERRAFORM_VERSION: "1.10.5"
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      ROLE_TO_ASSUME: ${{ secrets.IAM_ROLE_TO_ASSUME }}
+      SESSION_NAME: ${{ inputs.session_name }}
+      CODE_PATH:  ${{ inputs.script_path }}
+    steps:
+      - name: "Checking input values given by an user"
+        run: |
+          echo "User selected the environment is: ${{ inputs.environment }}"
+          echo "User selected the deployment_type is: ${{ inputs.deployment_type }}"
+          echo "User entered the change number is: ${{ inputs.change_number }}"
+          echo "AWS session name is: ${{ inputs.session_name }}"
+          echo "User selected code path is: ${{ inputs.script_path }}"
+          echo "Sleeping for 5 seconds before checkout the code"
+          sleep 5
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: "Configure AWS Credentials via OIDC"
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.IAM_ROLE_TO_ASSUME }}
+          role-session-name: ${{ env.SESSION_NAME }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - name: Setup Terraform CLI
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+      - name: Run for DEV
+        if: ${{ github.event.inputs.environment == 'dev' }}
+        run: |
+          echo "Running DEV tasks..."
+          cd ${{ env.CODE_PATH}}
+          terraform init
+          terraform fmt 
+          terraform plan
+      - name: Run for STAGE
+        if: ${{ github.event.inputs.environment == 'stage' }}
+        run: |
+          echo "Running STAGE tasks..."
+          echo "Navigating to staging script"
+          cd ${{ env.CODE_PATH }}
+          bash stage.sh
+          ls -l 
+          bash stage.sh
+      - name: Run for PROD
+        if: ${{ github.event.inputs.environment == 'prod' }}
+        run: 
+          echo "Running PROD tasks..."
+          echo "Navigating to staging script"
+          cd ${{ env.CODE_PATH }}
+          ls -l 
+          docker --version
