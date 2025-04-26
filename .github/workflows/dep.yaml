@@ -88,14 +88,17 @@ jobs:
           echo "GITHUB EVENT ACTION: ${{ github.event.inputs.action }}"
           bash stage.sh
           sleep 5
-          echo "Navigating to eks terraform script path"
           pwd
           ls -l
           echo "checking bucket status"
           aws s3 ls
-          # terraform init
-          # terraform fmt 
-          # terraform plan
+          echo "Navigating to eks terraform script dir"
+          cd ../../eks
+          echo "listing the files in $(pwd) directory.."
+          ls -l
+          terraform init
+          terraform fmt 
+          terraform plan
       - name: Run for STAGE
         if: ${{ github.event.inputs.environment == 'stage' }}
         run: |
