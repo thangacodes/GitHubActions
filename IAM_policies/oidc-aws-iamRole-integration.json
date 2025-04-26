@@ -1,0 +1,26 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::${{ AWS_ACCOUNT_ID }}:oidc-provider/token.actions.githubusercontent.com"
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.githubusercontent.com:sub": [
+              "repo:${{ GIT_REPO_NAME }}:pull_request",
+              "repo:${{ GIT_REPO_NAME }}:ref:refs/heads/main"
+            ],
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+          }
+        }
+      }
+    ]
+  }
+
+
+/* 
+Note: In this JSON policy, AWS_ACCOUNT_ID and GIT_REPO_NAME are placeholders. Please update them according to your requirements.
+*/
