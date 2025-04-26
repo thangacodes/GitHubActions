@@ -93,7 +93,7 @@ jobs:
           echo "checking bucket status"
           aws s3 ls
           echo "Navigating to eks terraform script dir"
-          cd ../../eks
+          cd ../../eks-tf
           echo "listing the files in $(pwd) directory.."
           ls -l
           terraform init
