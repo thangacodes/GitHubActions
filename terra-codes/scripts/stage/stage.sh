@@ -1,20 +1,19 @@
 #!/bin/bash
 echo "Script executed at: $(date '+%Y-%m-%d %H:%M:%S')"
-## Variables
+
+## VARIABLES TO THIS SCRIPT
 BUCKET_NAME="tfbackend-for-argocd-project"
-REGION="ap-south-1"
+REGION="${AWS_REGION}"
 FOLDER="backend"
-# Use environment variable instead of positional $1
 ACTION="${ACTION}"
+
+## DEBUG
+echo "DEBUG: AWS_REGION=${AWS_REGION}"
 echo "DEBUG: ACTION=${ACTION}"
-# read -p "What operation would you like to perform (create or delete): " ACTION
-echo "User entered action is:" $ACTION
-echo " aws cli run for s3 related.."
 if [[ -z "$ACTION" ]]; then
   echo "Error: No action specified. Use 'create' or 'delete' as the first argument."
   exit 1
 fi
-echo "User entered action is: $ACTION"
 if [[ $ACTION == "create" ]]; then
   echo "S3 bucket creation in progress..."
   aws s3api create-bucket \
@@ -38,4 +37,3 @@ else
   echo "Invalid action: $ACTION. Use 'create' or 'delete'."
   exit 1
 fi
-exit 0
