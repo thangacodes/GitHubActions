@@ -4,8 +4,9 @@ echo "Script executed at: $(date '+%Y-%m-%d %H:%M:%S')"
 BUCKET_NAME="tfbackend-for-argocd-project"
 REGION="ap-south-1"
 FOLDER="backend"
-ACTION=$1
-echo "DEBUG: ACTION=$ACTION"
+# Use environment variable instead of positional $1
+ACTION="${ACTION}"
+echo "DEBUG: ACTION=${ACTION}"
 # read -p "What operation would you like to perform (create or delete): " ACTION
 echo "User entered action is:" $ACTION
 echo " aws cli run for s3 related.."
