@@ -28,3 +28,11 @@ output "SGPId-for-eksNodes" {
   description = "EKS NodeGroup Security Group Id"
   value       = module.eks.eksNodes-SGPId
 }
+output "node_group_tags" {
+  description = "All tags applied to the EKS node group"
+  value       = module.eks.ngtags
+}
+output "node_group_disk_size" {
+  description = "Disk size of the EKS node group instances"
+  value       = module.eks.disk_size
+}
