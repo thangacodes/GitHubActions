@@ -54,6 +54,11 @@ Simple Terraform scripts to test TFLint
 
 [terracode](https://github.com/thangacodes/GitHubActions-repo/tree/main/terra-codes)
 
+# Multiple CICD environment
+
+This is to create infrastructure resources using GitHub Actions and a CI/CD method for various environments such as dev, stage, and prod.
+
+[.github/workflows/multi_deployment](https://github.com/thangacodes/GitHubActions/blob/main/.github/workflows/dep.yaml)
 
 # Node.js
 
