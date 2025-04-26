@@ -15,6 +15,7 @@ on:
         description: 'Select the deployment (Infra, Application, Upgrade)'
         required: true
         default: 'Infra'
+        type: choice
         options:
           - Infrastructure
           - Application
@@ -30,6 +31,7 @@ on:
       script_path:
         description: 'Iac and App Script directory'
         required: true
+        type: choice
         default: 'terra-codes/scripts/stage'
         options:
           - terra-codes/eks-tf
