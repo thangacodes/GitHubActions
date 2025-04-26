@@ -3,26 +3,26 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Select environment as: (dev, stage, prod)'
+        description: 'Select environment as: (Dev, Stage, Prod)'
         required: true
-        default: 'dev'
+        default: 'Dev'
         type: choice
         options:
-          - dev
-          - stage
-          - prod
+          - Dev 
+          - Stage
+          - Prod
       action:
-        description: 'Choose action as: (create or delete)'
+        description: 'Choose action as: (Create or Delete)'
         required: true
-        default: 'create'
+        default: 'Create'
         type: choice
         options:
-          - create
-          - delete
+          - Create
+          - Delete
       deployment_type:
         description: 'Select the deployment type as: (Infra, Application, Upgrade)'
         required: true
-        default: 'Infra'
+        default: 'Infrastructure'
         options:
           - Infrastructure
           - Application
@@ -30,13 +30,13 @@ on:
       change_number:
         description: 'Change number'
         required: true
-        default: 'CHG35678'
+        default: 'CHG356788'
       session_name:
         description: 'AWS Session Name'
         required: true
         default: 'OIDC'
       script_path:
-        description: 'Iac and App Script directory'
+        description: 'Iac and App Script Directory'
         required: true
         default: 'terra-codes/scripts/stage'
         options:
@@ -66,8 +66,6 @@ jobs:
           echo "AWS session name is: ${{ inputs.session_name }}"
           echo "User selected action is: ${{ inputs.action }}"
           echo "User selected code path is: ${{ inputs.script_path }}"
-          echo "Sleeping for 5 seconds before checkout the code"
-          sleep 5
       - name: Checkout code
         uses: actions/checkout@v3
       - name: "Configure AWS Credentials via OIDC"
@@ -94,7 +92,7 @@ jobs:
           aws s3 ls
           echo "Navigating to eks terraform script dir"
           cd ../../eks-tf
-          echo "listing the files in $(pwd) directory.."
+          echo "listing the files in: $(pwd) directory.."
           ls -l
           terraform init
           terraform fmt 
@@ -103,16 +101,14 @@ jobs:
         if: ${{ github.event.inputs.environment == 'stage' }}
         run: |
           echo "Running STAGE tasks..."
-          echo "Navigating to staging script"
+          echo "Navigating to Staging Script"
           cd ${{ env.CODE_PATH }}
-          bash stage.sh
-          ls -l 
           bash stage.sh
       - name: Run for PROD
         if: ${{ github.event.inputs.environment == 'prod' }}
         run: 
-          echo "Running PROD tasks..."
-          echo "Navigating to staging script"
+          echo "Running PROD Tasks..."
+          echo "Navigating to Prod Script"
           cd ${{ env.CODE_PATH }}
           ls -l 
           docker --version
