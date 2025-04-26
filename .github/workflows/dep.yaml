@@ -30,7 +30,7 @@ on:
       change_number:
         description: 'Change number'
         required: true
-        default: 'CHG3XXXX'
+        default: 'CHG35678'
       session_name:
         description: 'AWS Session Name'
         required: true
@@ -89,13 +89,13 @@ jobs:
           bash stage.sh
           sleep 5
           echo "Navigating to eks terraform script path"
-          cd ../eks
-          ls -l 
+          pwd
+          ls -l
           echo "checking bucket status"
           aws s3 ls
-          terraform init
-          terraform fmt 
-          terraform plan
+          # terraform init
+          # terraform fmt 
+          # terraform plan
       - name: Run for STAGE
         if: ${{ github.event.inputs.environment == 'stage' }}
         run: |
