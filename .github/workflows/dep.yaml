@@ -11,11 +11,18 @@ on:
           - dev
           - stage
           - prod
+      action:
+        description: 'Choose create or delete'
+        required: true
+        default: 'create'
+        type: choice
+        options:
+          - create
+          - delete
       deployment_type:
         description: 'Select the deployment (Infra, Application, Upgrade)'
         required: true
         default: 'Infra'
-        type: choice
         options:
           - Infrastructure
           - Application
@@ -31,7 +38,6 @@ on:
       script_path:
         description: 'Iac and App Script directory'
         required: true
-        type: choice
         default: 'terra-codes/scripts/stage'
         options:
           - terra-codes/eks-tf
@@ -49,6 +55,7 @@ jobs:
       AWS_REGION: ${{ vars.AWS_REGION }}
       ROLE_TO_ASSUME: ${{ secrets.IAM_ROLE_TO_ASSUME }}
       SESSION_NAME: ${{ inputs.session_name }}
+      ACTION: ${{ inputs.action }}
       CODE_PATH:  ${{ inputs.script_path }}
     steps:
       - name: "Checking input values given by an user"
@@ -57,6 +64,7 @@ jobs:
           echo "User selected the deployment_type is: ${{ inputs.deployment_type }}"
           echo "User entered the change number is: ${{ inputs.change_number }}"
           echo "AWS session name is: ${{ inputs.session_name }}"
+          echo "User selected action is: ${{ inputs.action }}"
           echo "User selected code path is: ${{ inputs.script_path }}"
           echo "Sleeping for 5 seconds before checkout the code"
           sleep 5
@@ -77,6 +85,13 @@ jobs:
         run: |
           echo "Running DEV tasks..."
           cd ${{ env.CODE_PATH}}
+          bash stage.sh
+          sleep 5
+          echo "Navigating to eks terraform script path"
+          cd ../eks
+          ls -l 
+          echo "checking bucket status"
+          aws s3 ls
           terraform init
           terraform fmt 
           terraform plan
