@@ -58,7 +58,7 @@ Simple Terraform scripts to test TFLint
 
 This is to create infrastructure resources using GitHub Actions and a CI/CD method for various environments such as dev, stage, and prod.
 
-[multi_deployment](https://github.com/thangacodes/GitHubActions/blob/main/.github/workflows/dep.yaml)
+[Multi-Deployment](https://github.com/thangacodes/GitHubActions/blob/main/.github/workflows/dep.yaml)
 
 # Node.js
 
