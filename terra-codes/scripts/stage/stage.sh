@@ -14,7 +14,7 @@ if [[ -z "$ACTION" ]]; then
   echo "Error: No action specified. Use 'create' or 'delete' as the first argument."
   exit 1
 fi
-if [[ $ACTION == "create" ]]; then
+if [[ $ACTION == "Create" ]]; then
   echo "S3 bucket creation in progress..."
   aws s3api create-bucket \
     --bucket "$BUCKET_NAME" \
@@ -26,7 +26,7 @@ if [[ $ACTION == "create" ]]; then
     --region "$REGION"
   aws s3api get-bucket-location --bucket "$BUCKET_NAME"
   aws s3 ls "$BUCKET_NAME" --region "$REGION"
-elif [[ $ACTION == "delete" ]]; then
+elif [[ $ACTION == "Delete" ]]; then
   echo "S3 bucket deletion in progress..."
   aws s3 ls "$BUCKET_NAME"
   aws s3 rm s3://"$BUCKET_NAME" --recursive --region "$REGION"
