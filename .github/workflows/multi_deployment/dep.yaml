@@ -3,19 +3,26 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Select environment (dev, stage, prod)'
+        description: 'Select environment as: (Dev, Stage, Prod)'
         required: true
-        default: 'dev'
+        default: 'Dev'
         type: choice
         options:
-          - dev
-          - stage
-          - prod
-      deployment_type:
-        description: 'Select the deployment (Infra, Application, Upgrade)'
+          - Dev 
+          - Stage
+          - Prod
+      action:
+        description: 'Choose action as: (Create or Delete)'
         required: true
-        default: 'Infra'
+        default: 'Create'
         type: choice
+        options:
+          - Create
+          - Delete
+      deployment_type:
+        description: 'Select the deployment type as: (Infra, Application, Upgrade)'
+        required: true
+        default: 'Infrastructure'
         options:
           - Infrastructure
           - Application
@@ -23,16 +30,15 @@ on:
       change_number:
         description: 'Change number'
         required: true
-        default: 'CHG3XXXX'
+        default: 'CHG356788'
       session_name:
         description: 'AWS Session Name'
         required: true
         default: 'OIDC'
       script_path:
-        description: 'Iac and App Script directory'
+        description: 'Iac and App Script Directory'
         required: true
         default: 'terra-codes/scripts/stage'
-        type: choice
         options:
           - terra-codes/eks-tf
           - terra-codes/tflint_tf
@@ -49,6 +55,7 @@ jobs:
       AWS_REGION: ${{ vars.AWS_REGION }}
       ROLE_TO_ASSUME: ${{ secrets.IAM_ROLE_TO_ASSUME }}
       SESSION_NAME: ${{ inputs.session_name }}
+      ACTION: ${{ inputs.action }}
       CODE_PATH:  ${{ inputs.script_path }}
     steps:
       - name: "Checking input values given by an user"
@@ -57,9 +64,8 @@ jobs:
           echo "User selected the deployment_type is: ${{ inputs.deployment_type }}"
           echo "User entered the change number is: ${{ inputs.change_number }}"
           echo "AWS session name is: ${{ inputs.session_name }}"
+          echo "User selected action is: ${{ inputs.action }}"
           echo "User selected code path is: ${{ inputs.script_path }}"
-          echo "Sleeping for 5 seconds before checkout the code"
-          sleep 5
       - name: Checkout code
         uses: actions/checkout@v3
       - name: "Configure AWS Credentials via OIDC"
@@ -77,6 +83,17 @@ jobs:
         run: |
           echo "Running DEV tasks..."
           cd ${{ env.CODE_PATH}}
+          echo "GITHUB EVENT ACTION: ${{ github.event.inputs.action }}"
+          bash stage.sh
+          sleep 5
+          pwd
+          ls -l
+          echo "checking bucket status"
+          aws s3 ls
+          echo "Navigating to eks terraform script dir"
+          cd ../../eks-tf
+          echo "listing the files in: $(pwd) directory.."
+          ls -l
           terraform init
           terraform fmt 
           terraform plan
@@ -84,16 +101,14 @@ jobs:
         if: ${{ github.event.inputs.environment == 'stage' }}
         run: |
           echo "Running STAGE tasks..."
-          echo "Navigating to staging script"
+          echo "Navigating to Staging Script"
           cd ${{ env.CODE_PATH }}
-          bash stage.sh
-          ls -l 
           bash stage.sh
       - name: Run for PROD
         if: ${{ github.event.inputs.environment == 'prod' }}
         run: 
-          echo "Running PROD tasks..."
-          echo "Navigating to staging script"
+          echo "Running PROD Tasks..."
+          echo "Navigating to Prod Script"
           cd ${{ env.CODE_PATH }}
           ls -l 
           docker --version
