@@ -20,7 +20,7 @@ on:
           - create
           - delete
       deployment_type:
-        description: 'Select the deployment (Infra, Application, Upgrade)'
+        description: 'Select the deployment type as: (Infra, Application, Upgrade)'
         required: true
         default: 'Infra'
         options:
