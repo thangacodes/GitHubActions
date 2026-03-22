@@ -1,0 +1,16 @@
+name: Deployt Static to S3 Bucket
+on: push
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+	steps:
+	  - name: Checkout Code from Repository
+	    uses: actions/checkout@v4
+	  - name: Configure AWS Credentials
+	    uses: aws-actions/configure-aws-credentials@v4
+		with:
+		  role-to-assume: arn:aws:iam::511058508056:role/GHActionRole
+          aws-region: ap-south-1
+	  - name: Deploy to S3
+	    run: |
+		  aws s3 sync . s3://arn:aws:s3:::gitops-bucket2026 --delete
