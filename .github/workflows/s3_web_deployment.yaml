@@ -19,5 +19,5 @@ jobs:
       - name: Deploy to S3
         run: |
           aws s3 sync . s3://gitops-bucket2026/ \
-            --exclude "*" \
-            --include "simple.html"
+          --exclude "*" \
+          --include "static_web/simple.html"
