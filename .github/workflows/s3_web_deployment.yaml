@@ -14,9 +14,9 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::511058508056:role/GHActionRole
-          aws-region: ap-south-1
-      - name: Deploy to S3
+          role-to-assume: ${{ env.ARN_TO_ASSUME }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Deploy to S3 bucket for html file
         run: |
           aws s3 sync . s3://gitops-bucket2026/ \
           --exclude "*" \
