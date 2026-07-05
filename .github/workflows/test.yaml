@@ -4,7 +4,7 @@ on:
 
 jobs:
   test:
-    runs-on: self-hosted
+    runs-on: linux
     steps:
       - uses: actions/checkout@v4
       - run: echo "Running on self-hosted runner"
