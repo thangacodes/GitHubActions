@@ -1,4 +1,5 @@
 name: Test self hosted runner job
+
 on:
   push:
     branches: [main, dev]
@@ -6,7 +7,12 @@ on:
 
 jobs:
   testjob:
-    runs-on: self-hosted
+    runs-on: [self-hosted, linux, x64]
     steps:
       - uses: actions/checkout@v4
-      - run: echo "Running on self-hosted runner"
+      - name: Show working directory
+        run: pwd
+      - name: Show current user
+        run: whoami
+      - name: Echo message
+        run: echo "Running on self-hosted runner"
