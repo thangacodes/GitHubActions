@@ -1,10 +1,12 @@
-name: Test
+name: Test self hosted runner job
 on:
+  push:
+    branches: [main, dev]
   workflow_dispatch:
 
 jobs:
-  test:
-    runs-on: linux
+  testjob:
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
       - run: echo "Running on self-hosted runner"
