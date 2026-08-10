@@ -1,4 +1,4 @@
-name: 01-Hello World
+name: 01-GHVARIABLE
 on: workflow_dispatch
 
 jobs:
@@ -18,3 +18,7 @@ jobs:
           echo "Branch ref: $GITHUB_REF"
           echo "Commit SHA: $GITHUB_SHA"
           echo "Pushed by: $GITHUB_REF"
+      - name: Another method to print Default GH Variable values
+        run: |
+          echo "**********************"
+          echo "${{ github.* }}"
