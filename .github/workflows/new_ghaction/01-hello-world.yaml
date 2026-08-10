@@ -1,0 +1,17 @@
+name: 01-Hello World
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print greeting messages
+        run: echo "Hello, GitHub Actions!"
+      
+      - name: Print Default GH Action variables
+        run: |
+          echo "This step is to run several shell commands."
+          echo "Today's runner OS is: $RUNNER_OS"
+          echo "The repository is: $GITHUB_REPOSITORY"
+          echo "The workflow running on the path: $PWD"
