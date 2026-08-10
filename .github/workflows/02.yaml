@@ -1,0 +1,14 @@
+name: 02-exclusive_ghcontent
+on: workflow_dispatch
+
+jobs:
+  build_ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print greeting messages
+        run: echo "Hello, i'm GitHub Actions!"
+      - name: Print complete GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: |
+          echo "$GITHUB_CONTEXT"
