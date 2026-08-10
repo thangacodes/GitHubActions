@@ -18,8 +18,3 @@ jobs:
           echo "Branch ref: $GITHUB_REF"
           echo "Commit SHA: $GITHUB_SHA"
           echo "Pushed by: $GITHUB_REF"
-      - name: Print complete GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: |
-          echo "$GITHUB_CONTEXT"
