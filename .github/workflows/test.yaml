@@ -1,9 +1,6 @@
 name: Test self hosted runner job
 
-on:
-  push:
-    branches: [main, dev]
-  workflow_dispatch:
+on: workflow_dispatch:
 
 jobs:
   testjob:
