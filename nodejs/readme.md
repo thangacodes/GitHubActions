@@ -13,4 +13,4 @@ node file_name.js
 # Example:
 node name.js
 
-Your good name is:David Moses
+Your good name is: David Moses
