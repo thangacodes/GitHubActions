@@ -18,7 +18,8 @@ jobs:
           echo "Branch ref: $GITHUB_REF"
           echo "Commit SHA: $GITHUB_SHA"
           echo "Pushed by: $GITHUB_REF"
-      - name: Another method to print Default GH Variable values
+      - name: Print complete GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: |
-          echo "**********************"
-          echo "${{ github.* }}"
+          echo "$GITHUB_CONTEXT"
